@@ -7,7 +7,7 @@ class Api::RestaurantsController < ApplicationController
     def show
         @restaurant = Restaurant.find_by_id(params[:id])
 
-        if @movie.nil?
+        if @restaurant.nil?
             render json: "Restaurant not found"
         else
             render "api/restaurants/show"
@@ -15,6 +15,6 @@ class Api::RestaurantsController < ApplicationController
     end
 
     def restaurant_params
-        params.require(:restaurant).permit(:name, :address, :rating)
+        params.require(:restaurant).permit(:name, :address, :rating, :description)
     end
 end

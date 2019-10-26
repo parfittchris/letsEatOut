@@ -5,11 +5,20 @@
 // like app/views/layouts/application.html.erb.
 // All it does is render <div>Hello Vue</div> at the bottom of the page.
 
-import Vue from 'vue'
-import App from '../app.vue'
+import Vue from 'vue';
+import VueRouter from 'vue-router';
+import App from './../app.vue';
+import appRoutes from './../routes/app-routes.js';
+
+Vue.use(VueRouter);
+
+const router = new VueRouter({
+  routes: appRoutes
+});
 
 document.addEventListener('DOMContentLoaded', () => {
   const app = new Vue({
+    router,
     render: h => h(App)
   }).$mount()
   document.body.appendChild(app.$el)

@@ -1,32 +1,23 @@
 <template>
   <div id="app">
-    <Sidebar />
-    <p>Hello</p>
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
 import axios from "axios";
-import Sidebar from "./components/sidebar";
 
 export default {
-  name: "app",
-  components: {
-    Sidebar
-  }
-  // mounted() {
-  //   axios.get("api/restaurants").then(res => (this.restaurants = res.data));
-  // }
+  name: "app"
 };
 </script>
 
-<style scoped>
-p {
-  font-size: 2em;
-  text-align: center;
-}
-
-#app {
-  display: flex;
+<style>
+/* Painful Red: #eb1736 */
+/* 35 Years Old Purple: #5252d4 */
+/* Lighter purple on the gradient: #7575dd */
+/* Shadow Purple Red: #781a44 */
+body {
+  background-color: #a3a3ff;
 }
 </style>
