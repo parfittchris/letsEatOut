@@ -7,10 +7,36 @@
 
 import Vue from 'vue';
 import VueRouter from 'vue-router';
+import Vuex from 'vuex';
+// import VeuxPersist from 'veux-persist';
 import App from './../app.vue';
-import appRoutes from './../routes/app-routes.js';
+import appRoutes from '../routes/app-routes.js';
+
 
 Vue.use(VueRouter);
+Vue.use(Vuex);
+
+// const vuexLocalStorage = new VeuxPersist({
+//   key: 'vuex',
+//   storage: window.localStorage
+// })
+
+export const store = new Vuex.Store(
+  {
+    state: {
+      authenticated: false,
+      currentUser: null
+    },
+    mutations: {
+      setAuthentication(state, status) {
+        state.authenticated = status;
+      },
+      setCurrentUser(state, id) {
+        state.currentUser = id
+      }
+    },
+  }
+);
 
 const router = new VueRouter({
   routes: appRoutes
@@ -19,6 +45,7 @@ const router = new VueRouter({
 document.addEventListener('DOMContentLoaded', () => {
   var app = new Vue({
     router,
+    store,
     render: h => h(App)
   }).$mount()
   document.body.appendChild(app.$el)

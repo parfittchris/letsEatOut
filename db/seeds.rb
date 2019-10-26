@@ -18,7 +18,7 @@ ActiveRecord::Base.connection.reset_pk_sequence!('users');
 ActiveRecord::Base.connection.reset_pk_sequence!('restaurants');
 ActiveRecord::Base.connection.reset_pk_sequence!('reviews');
 
-u1 = User.create!(username: 'testuser', email: 'testuser@gmail.com', password: 'password')
+u1 = User.create!(username: 'demoUser', email: 'demoUser@gmail.com', password: 'password')
 u2 = User.create!(username: 'extrachrisp', email: 'extrachrisp@gmail.com', password: 'password')
 u3 = User.create!(username: 'pinkbunny', email: 'pinkbunny@yahoo.com', password: 'password')
 

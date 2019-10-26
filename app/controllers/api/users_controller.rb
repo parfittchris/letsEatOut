@@ -11,7 +11,7 @@ class Api::UsersController < ApplicationController
     end
 
     def create
-        @user = User.new(username: params[:username], password: params[:password])
+        @user = User.new(username: params[:username], email: params[:email], password: params[:password])
         if @user.save
             login!(@user)
             render "api/users/show"

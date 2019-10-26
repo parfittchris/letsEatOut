@@ -1,11 +1,6 @@
 <template>
   <div id="app">
-    <div v-if="this.session_token">
-      <router-view></router-view>
-    </div>
-    <div v-else>
-      <SignUp />
-    </div>
+    <router-view></router-view>
   </div>
 </template>
 <script>
@@ -18,11 +13,6 @@ export default {
   components: {
     SignUp,
     Login
-  },
-  data() {
-    return {
-      session_token: true
-    };
   }
 };
 </script>

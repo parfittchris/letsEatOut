@@ -8,7 +8,6 @@
     </div>
     <div class="index-titles">
       <h1>Let's eat out tonight!</h1>
-      <h3>Welcome to LetsEatOut, a restaurant review platform! Don't know where to eat tonight? Browse our selection of restaurants and check out the reviews to find the hottest spot. Had a fantastic meal? Make sure to write that review!</h3>
     </div>
     <div class="restaurant-list" v-bind:key="restaurant.id" v-for="restaurant in restaurants">
       <div class="index-restaurant">

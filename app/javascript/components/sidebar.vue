@@ -1,11 +1,42 @@
 <template>
   <div class="sidebar">
     <router-link class="homeBtn" :to="{path: '/'}">Home</router-link>
+    <button class="homeBtn" v-on:click="logout">Logout</button>
+    <h2>Hello {{this.user.username}}!</h2>
+    <button v-on:click="test">test here</button>
   </div>
 </template>
 <script>
+import axios from "axios";
+
 export default {
-  name: "Sidebar"
+  name: "Sidebar",
+  data() {
+    return {
+      user: []
+    };
+  },
+  mounted() {
+    axios
+      .get(`/api/users/${this.$store.state.currentUser}`)
+      .then(res => (this.user = res.data))
+      .catch(err => console.log(err));
+  },
+  methods: {
+    logout() {
+      axios
+        .delete("./api/session")
+        .then(res => {
+          this.$store.commit("setAuthentication", false);
+          this.$store.commit("currentUser", null);
+          this.$router.replace({ name: "login" });
+        })
+        .catch(err => console.log(err));
+    },
+    test() {
+      console.log(this.$store.state.currentUser);
+    }
+  }
 };
 </script>
 

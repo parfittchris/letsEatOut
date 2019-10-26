@@ -2,19 +2,19 @@ import Home from './../components/home'
 import Restaurant from './../components/restaurant'
 import Signup from './../components/signup'
 import Login from './../components/login'
-
-
+import { store } from './../packs/app.js'
 
 export default [
     {
         path: '/',
-        name: 'home',
-        component: Home
+        redirect: {
+            name: "login"
+        }
     },
     {
-        path: '/restaurants/:id',
-        name: 'restaurant,',
-        component: Restaurant
+        path: "/login",
+        name: "login",
+        component: Login
     },
     {
         path: '/signup',
@@ -22,8 +22,27 @@ export default [
         component: Signup
     },
     {
-        path: '/login',
-        name: 'login,',
-        component: Login
-    }
+        path: '/restaurants/:id',
+        name: 'restaurant,',
+        component: Restaurant,
+        beforeEnter: (to, from, next) => {
+            if (store.state.authenticated === false) {
+                next(false);
+            } else {
+                next();
+            }
+        }
+    },
+    {
+        path: '/home',
+        name: 'home',
+        component: Home,
+        beforeEnter: (to, from, next) => {
+            if (store.state.authenticated === false) {
+                next(false);
+            } else {
+                next();
+            }
+        }
+    },
 ];
