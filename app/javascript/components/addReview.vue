@@ -13,6 +13,7 @@
 import axios from "axios";
 export default {
   name: "AddReview",
+  props: ["restaurantId"],
   data() {
     return {
       title: "",
@@ -21,11 +22,10 @@ export default {
   },
   methods: {
     addReview(e) {
-      e.preventDefault();
       axios
         .post("/api/reviews", {
           author_id: 1,
-          restaurant_id: 5,
+          restaurant_id: this.restaurantId,
           title: this.title,
           content: this.content,
           rating: 4

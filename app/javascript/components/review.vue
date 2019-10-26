@@ -7,7 +7,9 @@
       <p class="review-item" id="rating">{{this.review.rating}}</p>
     </div>
     <div class="review-btns">
-      <button v-on:click="deleteReview">Delete Review</button>
+      <form @submit="deleteReview">
+        <input type="submit" value="Delete Review" class="btn" />
+      </form>
     </div>
   </div>
 </template>
@@ -19,7 +21,13 @@ export default {
   props: ["review"],
   methods: {
     deleteReview() {
-      axios.delete(`/api/reviews/${this.review.id}`);
+      this.$emit("update");
+      axios
+        .delete(`/api/reviews/${this.review.id}`)
+        .then(res => {
+          console.log(res.data);
+        })
+        .catch(err => console.log(err));
     }
   }
 };

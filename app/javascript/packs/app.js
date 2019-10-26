@@ -17,7 +17,7 @@ const router = new VueRouter({
 });
 
 document.addEventListener('DOMContentLoaded', () => {
-  const app = new Vue({
+  var app = new Vue({
     router,
     render: h => h(App)
   }).$mount()

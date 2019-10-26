@@ -1,5 +1,9 @@
 import Home from './../components/home'
 import Restaurant from './../components/restaurant'
+import Signup from './../components/signup'
+import Login from './../components/login'
+
+
 
 export default [
     {
@@ -11,5 +15,15 @@ export default [
         path: '/restaurants/:id',
         name: 'restaurant,',
         component: Restaurant
+    },
+    {
+        path: '/signup',
+        name: 'signup,',
+        component: Signup
+    },
+    {
+        path: '/login',
+        name: 'login,',
+        component: Login
     }
 ];

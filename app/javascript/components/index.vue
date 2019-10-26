@@ -91,9 +91,13 @@ export default {
   font-size: 0.9rem;
 }
 
-/* .index-description {
-  max-height: 50%;
-} */
+.index-description {
+  height: 4.5em;
+  line-height: 1.5em;
+  overflow: hidden;
+  max-width: 90%;
+  margin: 0 auto;
+}
 
 .index-restaurant {
   display: flex;

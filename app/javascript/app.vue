@@ -1,14 +1,29 @@
 <template>
   <div id="app">
-    <router-view></router-view>
+    <div v-if="this.session_token">
+      <router-view></router-view>
+    </div>
+    <div v-else>
+      <SignUp />
+    </div>
   </div>
 </template>
-
 <script>
 import axios from "axios";
+import SignUp from "./components/signup";
+import Login from "./components/login";
 
 export default {
-  name: "app"
+  name: "app",
+  components: {
+    SignUp,
+    Login
+  },
+  data() {
+    return {
+      session_token: true
+    };
+  }
 };
 </script>
 

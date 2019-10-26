@@ -22,12 +22,12 @@
         <h1>{{this.info.name}} Reviews</h1>
         <button v-on:click="addReview">Add a review</button>
         <div class="review-section" v-bind:key="review.id" v-for="review in this.info.reviews">
-          <Review v-bind:review="review" />
+          <Review v-bind:review="review" @update="getUpdate" />
         </div>
       </div>
     </div>
-    <div id="modal" v-if="this.clicked" v-bind:restaurantId="this.info.id">
-      <addReview />
+    <div id="modal" v-if="this.clicked">
+      <addReview v-bind:restaurantId="this.info.id" @get-reviews="getReviews" @update="getUpdate" />
     </div>
   </div>
 </template>
@@ -46,19 +46,12 @@ export default {
   data() {
     return {
       info: null,
-      clicked: false
+      clicked: false,
+      updated: true
     };
   },
-  beforeMount() {
-    let urlSplit = window.location.href.split("/");
-    let num = parseInt(urlSplit[urlSplit.length - 1]);
-
-    axios
-      .get(`/api/restaurants/${num}`)
-      .then(res => {
-        this.info = res.data;
-      })
-      .catch(err => console.log(err));
+  mounted() {
+    this.getReviews();
   },
   methods: {
     addReview() {
@@ -67,6 +60,22 @@ export default {
       } else {
         this.clicked = true;
       }
+    },
+    getReviews() {
+      this.clicked = false;
+      this.updated = false;
+      let urlSplit = window.location.href.split("/");
+      let num = parseInt(urlSplit[urlSplit.length - 1]);
+
+      axios
+        .get(`/api/restaurants/${num}`)
+        .then(res => {
+          this.info = res.data;
+        })
+        .catch(err => console.log(err));
+    },
+    getUpdate() {
+      this.$forceUpdate();
     }
   }
 };

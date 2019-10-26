@@ -31,6 +31,7 @@ class Api::ReviewsController < ApplicationController
             render json ["Review not found"]
         else
             @review.destroy
+            render "api/reviews/destroy"
         end
     end
 
