@@ -18,7 +18,8 @@ In letsEatOut users will be able to:
  
  Users must sign up for an account before they can log into the site. A user/password combination is stored in the back end that is verified on successive logins to ensure only validated users have access to the site.
 
-```loginUser(e) {
+```
+loginUser(e) {
       e.preventDefault();
       axios
         .post("/api/session", {
@@ -30,12 +31,41 @@ In letsEatOut users will be able to:
           this.$store.commit("setCurrentUser", res.data.id);
           this.$router.replace({ name: "home" });
         })
-        .catch(err => this.errors.push("Invalid username and/or password"));```
-        
+        .catch(err => this.errors.push("Invalid username and/or password"));
+  ```
+   
 ### Write and delete reviews
 Users can search for restaurants and write reviews implmenting a rating as well. Users are able to delete reviews as well but only those that they themselves have written, not those by other users.
  ![wire frame](https://github.com/parfittchris/letsEatOut/blob/master/app/assets/images/review2.png)
 
 ### Profile Page and Followers
 Users can access their own profile and the profiles of other users. Profiles show all reviews written by that user as well as a tally of follower and followed accounts. Users can follow other user accounts.
+
+```
+follow() {
+      if (this.following === true) {
+        this.following = false;
+
+        axios
+          .delete("./api/followers/1", {
+            data: {
+              user_id: this.$store.state.currentUser,
+              follow_id: this.user.id
+            }
+          })
+          .then(res => console.log(res))
+          .catch(err => console.log(err));
+      } else {
+        this.following = true;
+
+        axios
+          .post("./api/followers", {
+            user_id: this.$store.state.currentUser,
+            follow_id: this.user.id
+          })
+          .then(res => console.log(res.data))
+          .catch(err => console.log(err));
+      }
+    }
+ ```
 
