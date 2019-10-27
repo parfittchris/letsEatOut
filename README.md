@@ -13,15 +13,29 @@ In letsEatOut users will be able to:
   
  ## Features
  
- ###Login/Sign Up Authentication
+ ### Login/Sign Up Authentication
  ![wire frame](https://github.com/parfittchris/letsEatOut/blob/master/app/assets/images/userauth.png)
  
  Users must sign up for an account before they can log into the site. A user/password combination is stored in the back end that is verified on successive logins to ensure only validated users have access to the site.
 
+```loginUser(e) {
+      e.preventDefault();
+      axios
+        .post("/api/session", {
+          email: this.email,
+          password: this.password
+        })
+        .then(res => {
+          this.$store.commit("setAuthentication", true);
+          this.$store.commit("setCurrentUser", res.data.id);
+          this.$router.replace({ name: "home" });
+        })
+        .catch(err => this.errors.push("Invalid username and/or password"));```
+        
 ### Write and delete reviews
 Users can search for restaurants and write reviews implmenting a rating as well. Users are able to delete reviews as well but only those that they themselves have written, not those by other users.
  ![wire frame](https://github.com/parfittchris/letsEatOut/blob/master/app/assets/images/review2.png)
 
 ### Profile Page and Followers
 Users can access their own profile and the profiles of other users. Profiles show all reviews written by that user as well as a tally of follower and followed accounts. Users can follow other user accounts.
- ![wire frame](https://github.com/parfittchris/letsEatOut/blob/master/app/assets/images/follow.png)
+
