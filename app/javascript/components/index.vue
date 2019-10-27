@@ -7,7 +7,7 @@
       <img class="header-img" src="./../../assets/images/rest4.jpeg" />
     </div>
     <div class="index-titles">
-      <h1>Let's eat out tonight!</h1>
+      <h1>Hey {{this.user.username}}! Let's eat out tonight!</h1>
     </div>
     <div class="restaurant-list" v-bind:key="restaurant.id" v-for="restaurant in restaurants">
       <div class="index-restaurant">
@@ -37,13 +37,19 @@ export default {
   },
   data() {
     return {
-      restaurants: []
+      restaurants: [],
+      user: []
     };
   },
   mounted() {
     axios
       .get(`api/restaurants`)
       .then(res => (this.restaurants = Object.values(res.data)))
+      .catch(err => console.log(err));
+
+    axios
+      .get(`/api/users/${this.$store.state.currentUser}`)
+      .then(res => (this.user = res.data))
       .catch(err => console.log(err));
   }
 };

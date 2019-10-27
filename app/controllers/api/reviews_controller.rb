@@ -12,14 +12,14 @@ class Api::ReviewsController < ApplicationController
         if @review.save
             render "api/reviews/show"
         else
-            render json: ["Review failed"]
+            render JSON: ["Review failed"]
         end
     end
 
     def show
         @review = Review.find_by_id(params[:id])
         if @review.nil?
-            render json ["Review not found"]
+            render JSON: ["Review not found"]
         else
             render "api/reviews/show"
         end
@@ -28,7 +28,7 @@ class Api::ReviewsController < ApplicationController
     def destroy 
         @review = Review.find_by_id(params[:id])
         if @review.nil?
-            render json ["Review not found"]
+            render JSON: ["Review not found"]
         else
             @review.destroy
             render "api/reviews/destroy"

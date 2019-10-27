@@ -2,6 +2,7 @@ import Home from './../components/home'
 import Restaurant from './../components/restaurant'
 import Signup from './../components/signup'
 import Login from './../components/login'
+import Profile from './../components/profile'
 import { store } from './../packs/app.js'
 
 export default [
@@ -18,12 +19,12 @@ export default [
     },
     {
         path: '/signup',
-        name: 'signup,',
+        name: 'signup',
         component: Signup
     },
     {
         path: '/restaurants/:id',
-        name: 'restaurant,',
+        name: 'restaurant',
         component: Restaurant,
         beforeEnter: (to, from, next) => {
             if (store.state.authenticated === false) {
@@ -37,6 +38,18 @@ export default [
         path: '/home',
         name: 'home',
         component: Home,
+        beforeEnter: (to, from, next) => {
+            if (store.state.authenticated === false) {
+                next(false);
+            } else {
+                next();
+            }
+        }
+    },
+    {
+        path: '/users/:id',
+        name: 'profile',
+        component: Profile,
         beforeEnter: (to, from, next) => {
             if (store.state.authenticated === false) {
                 next(false);

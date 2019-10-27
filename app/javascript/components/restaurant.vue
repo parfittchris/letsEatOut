@@ -20,14 +20,14 @@
       </div>
       <div class="reviews">
         <h1>{{this.info.name}} Reviews</h1>
-        <button v-on:click="addReview">Add a review</button>
+        <button class="reviewBtn" v-on:click="addReview">Add a review</button>
         <div class="review-section" v-bind:key="review.id" v-for="review in this.info.reviews">
-          <Review v-bind:review="review" @update="getUpdate" />
+          <Review v-bind:review="review" />
         </div>
       </div>
     </div>
     <div id="modal" v-if="this.clicked">
-      <addReview v-bind:restaurantId="this.info.id" @get-reviews="getReviews" @update="getUpdate" />
+      <addReview v-bind:restaurantId="this.info.id" @close-modal="addReview" />
     </div>
   </div>
 </template>
@@ -47,7 +47,7 @@ export default {
     return {
       info: null,
       clicked: false,
-      updated: true
+      updated: false
     };
   },
   mounted() {
@@ -62,8 +62,9 @@ export default {
       }
     },
     getReviews() {
-      this.clicked = false;
       this.updated = false;
+      this.clicked = false;
+
       let urlSplit = window.location.href.split("/");
       let num = parseInt(urlSplit[urlSplit.length - 1]);
 
@@ -73,9 +74,6 @@ export default {
           this.info = res.data;
         })
         .catch(err => console.log(err));
-    },
-    getUpdate() {
-      this.$forceUpdate();
     }
   }
 };
@@ -84,6 +82,7 @@ export default {
 .restaurant {
   display: flex;
   background-color: #a3a3ff;
+  /* z-index: 0; */
 }
 
 .restaurant-content {
@@ -140,25 +139,39 @@ export default {
   width: 90%;
 }
 
+.reviews {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+}
+
 .reviews h1 {
   text-align: center;
 }
 
+.reviewBtn {
+  width: 10%;
+  margin: 10px auto;
+  color: white;
+  background-color: #eb2946;
+  border: 2px solid white;
+  border-radius: 5px;
+  font-weight: 600;
+  text-align: center;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.reviewBtn:active {
+  background-color: #a3182d;
+}
+
 #modal {
-  transition-duration: 1s;
   width: 50%;
   height: 50%;
-  background-color: white;
-  border: 2px solid black;
   position: fixed;
   left: 25vw;
   top: 25vh;
 }
 </style>
 
-<style>
-/* .restaurant {
-  background-color: rgba(0, 0, 0, 0.7);
-  z-index: -10;
-} */
-</style>

@@ -8,7 +8,7 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Vuex from 'vuex';
-// import VeuxPersist from 'veux-persist';
+import VeuxPersist from 'vuex-persist';
 import App from './../app.vue';
 import appRoutes from '../routes/app-routes.js';
 
@@ -16,10 +16,10 @@ import appRoutes from '../routes/app-routes.js';
 Vue.use(VueRouter);
 Vue.use(Vuex);
 
-// const vuexLocalStorage = new VeuxPersist({
-//   key: 'vuex',
-//   storage: window.localStorage
-// })
+const vuexLocalStorage = new VeuxPersist({
+  key: 'vuex',
+  storage: window.localStorage
+})
 
 export const store = new Vuex.Store(
   {
@@ -35,6 +35,7 @@ export const store = new Vuex.Store(
         state.currentUser = id
       }
     },
+    plugins: [vuexLocalStorage.plugin]
   }
 );
 
