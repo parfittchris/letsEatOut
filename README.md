@@ -21,3 +21,7 @@ In letsEatOut users will be able to:
 ### Write and delete reviews
 Users can search for restaurants and write reviews implmenting a rating as well. Users are able to delete reviews as well but only those that they themselves have written, not those by other users.
  ![wire frame](https://github.com/parfittchris/letsEatOut/blob/master/app/assets/images/review2.png)
+
+### Profile Page and Followers
+Users can access their own profile and the profiles of other users. Profiles show all reviews written by that user as well as a tally of follower and followed accounts. Users can follow other user accounts.
+ ![wire frame](https://github.com/parfittchris/letsEatOut/blob/master/app/assets/images/follow.png)
