@@ -17,3 +17,7 @@ In letsEatOut users will be able to:
  ![wire frame](https://github.com/parfittchris/letsEatOut/blob/master/app/assets/images/userauth.png)
  
  Users must sign up for an account before they can log into the site. A user/password combination is stored in the back end that is verified on successive logins to ensure only validated users have access to the site.
+
+### Write and delete reviews
+Users can search for restaurants and write reviews implmenting a rating as well. Users are able to delete reviews as well but only those that they themselves have written, not those by other users.
+ ![wire frame](https://github.com/parfittchris/letsEatOut/blob/master/app/assets/images/review2.png)
