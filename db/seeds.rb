@@ -13,10 +13,13 @@ titles = ['Went here last night!' 'Wow!', 'So good!', "I'd come back", 'Let me t
 User.destroy_all
 Restaurant.destroy_all
 Review.destroy_all
+Follower.destroy_all
 
 ActiveRecord::Base.connection.reset_pk_sequence!('users');
 ActiveRecord::Base.connection.reset_pk_sequence!('restaurants');
 ActiveRecord::Base.connection.reset_pk_sequence!('reviews');
+ActiveRecord::Base.connection.reset_pk_sequence!('followers');
+
 
 u1 = User.create!(username: 'demoUser', email: 'demoUser@gmail.com', password: 'password')
 u2 = User.create!(username: 'extrachrisp', email: 'extrachrisp@gmail.com', password: 'password')
@@ -32,9 +35,6 @@ r7 = Restaurant.create!(name: Faker::Restaurant.unique.name, address: Faker::Add
 r8 = Restaurant.create!(name: Faker::Restaurant.unique.name, address: Faker::Address.unique.street_address, description: Faker::Restaurant.unique.description, rating: rand(0..5))
 r9 = Restaurant.create!(name: Faker::Restaurant.unique.name, address: Faker::Address.unique.street_address, description: Faker::Restaurant.unique.description, rating: rand(0..5))
 r10 = Restaurant.create!(name: Faker::Restaurant.unique.name, address: Faker::Address.unique.street_address, description: Faker::Restaurant.unique.description, rating: rand(0..5))
-
-
-
 
 rev1 = Review.create!(author_id: rand(1..3), restaurant_id: rand(1..10), content: Faker::Restaurant.review, rating: rand(0..5), title: titles[rand(0..titles.length-1)])
 rev2 = Review.create!(author_id: rand(1..3), restaurant_id: rand(1..10), content: Faker::Restaurant.review, rating: rand(0..5), title: titles[rand(0..titles.length-1)])
@@ -56,3 +56,8 @@ rev17 = Review.create!(author_id: rand(1..3), restaurant_id: rand(1..10), conten
 rev18 = Review.create!(author_id: rand(1..3), restaurant_id: rand(1..10), content: Faker::Restaurant.review, rating: rand(0..5), title: titles[rand(0..titles.length-1)])
 rev19 = Review.create!(author_id: rand(1..3), restaurant_id: rand(1..10), content: Faker::Restaurant.review, rating: rand(0..5), title: titles[rand(0..titles.length-1)])
 rev20 = Review.create!(author_id: rand(1..3), restaurant_id: rand(1..10), content: Faker::Restaurant.review, rating: rand(0..5), title: titles[rand(0..titles.length-1)])
+
+f1 = Follower.create!(user_id: 1, follow_id: 2);
+f2 = Follower.create!(user_id: 1, follow_id: 3);
+f3 = Follower.create!(user_id: 2, follow_id: 1);
+# f4 = Follower.create!(user_id: 3, follow_id: 1);

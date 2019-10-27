@@ -15,6 +15,22 @@ class User < ApplicationRecord
     through: :reviews,
     source: :restaurants
 
+    has_many :follow_associations_user,
+    foreign_key: :user_id,
+    class_name: :Follower
+
+    has_many :follow_associations_follower,
+    foreign_key: :follow_id,
+    class_name: :Follower
+
+    has_many :follows,
+    through: :follow_associations_follower,
+    source: :users
+
+    has_many :people_following,
+    through: :follow_associations_user,
+    source: :followers
+
 
     def self.find_by_credentials(email, password)
         user = User.find_by(email: email)

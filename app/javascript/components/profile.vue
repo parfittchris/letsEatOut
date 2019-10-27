@@ -9,8 +9,8 @@
           <h3>Username: {{this.user.username}}</h3>
           <h3>Email: {{this.user.email}}</h3>
           <div class="followers">
-            <h4>Followers: 5</h4>
-            <h4>Following: 5</h4>
+            <h4 v-on:click="test1">Followers: {{this.followers.length}}</h4>
+            <h4 v-on:click="test2">Following: {{this.peopleFollowing.length}}</h4>
           </div>
         </div>
       </div>
@@ -33,8 +33,8 @@
         <div class="userInfo">
           <h3>Username: {{this.user.username}}</h3>
           <div class="followers">
-            <h4>Followers: {{this.numFollowers}}</h4>
-            <h4>Following: {{this.numFollowing}}</h4>
+            <h4 v-on:click="test1">Followers: {{this.followers.length}}</h4>
+            <h4 v-on:click="test2">Following: {{this.peopleFollowing.length}}</h4>
           </div>
           <button v-if="this.following === true" v-on:click="follow" class="unFollowBtn">UnFollow</button>
           <button v-else v-on:click="follow" class="followBtn">Follow</button>
@@ -63,20 +63,41 @@ export default {
     return {
       user: [],
       following: false,
-      numFollowing: 5,
-      numFollowers: 5
+      followers: [],
+      peopleFollowing: []
     };
   },
   methods: {
+    test1() {
+      console.log(this.followers);
+    },
+    test2() {
+      console.log(this.peopleFollowing);
+    },
     follow() {
       if (this.following === true) {
         this.following = false;
-        this.numFollowers -= 1;
+
+        axios
+          .delete("./api/followers/1", {
+            data: {
+              user_id: this.$store.state.currentUser,
+              follow_id: this.user.id
+            }
+          })
+          .then(res => console.log(res))
+          .catch(err => console.log(err));
       } else {
         this.following = true;
-        this.numFollowers += 1;
+
+        axios
+          .post("./api/followers", {
+            user_id: this.$store.state.currentUser,
+            follow_id: this.user.id
+          })
+          .then(res => console.log(res.data))
+          .catch(err => console.log(err));
       }
-      console.log(this.following);
     }
   },
   components: {
@@ -91,6 +112,17 @@ export default {
       .get(`/api/users/${num}`)
       .then(res => {
         this.user = res.data;
+        console.log(res.data);
+        res.data.follows.forEach(follower => {
+          if (follower.id === this.$store.state.currentUser) {
+            this.following = true;
+          }
+          this.followers.push(follower);
+        });
+
+        res.data.people_following.forEach(person => {
+          this.peopleFollowing.push(person);
+        });
       })
       .catch(err => console.log(err));
   }
