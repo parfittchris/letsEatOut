@@ -68,4 +68,7 @@ follow() {
       }
     }
  ```
-
+### Future Updates
+ * Implement home screen 'news' section detailing review by followed mumbers
+ * Add functionality for uploading user profile images, biography info, etc.
+ * Restaurant profile, abilities for users to follow restaurants/get updates, etc.
