@@ -24,6 +24,7 @@
         <router-link :to="{path: '/signUp'}">here!</router-link>
       </p>
     </form>
+    <div v-if="this.errors.length > 0" class="error">{{this.errors[0]}}</div>
   </div>
 </template>
 <script>
@@ -36,7 +37,8 @@ export default {
       email: "",
       password: "",
       info: [],
-      userInfo: []
+      userInfo: [],
+      errors: []
     };
   },
   methods: {
@@ -52,7 +54,7 @@ export default {
           this.$store.commit("setCurrentUser", res.data.id);
           this.$router.replace({ name: "home" });
         })
-        .catch(err => console.log(err));
+        .catch(err => this.errors.push("Invalid username and/or password"));
     },
     demoLogin(e) {
       e.preventDefault();
@@ -148,6 +150,18 @@ export default {
 }
 
 .signUpLink {
+  text-align: center;
+}
+
+.error {
+  width: 20%;
+  position: relative;
+  background-color: white;
+  border: 1px solid black;
+  margin: 0 auto;
+  border-radius: 10px;
+  padding: 5px;
+  margin-top: 10%;
   text-align: center;
 }
 </style>
