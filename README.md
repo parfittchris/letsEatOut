@@ -14,3 +14,6 @@ In letsEatOut users will be able to:
  ## Features
  
  Login/Sign Up Authentication
+ ![wire frame]https://github.com/parfittchris/letsEatOut/blob/master/app/assets/images/userauth.png
+ 
+ Users must sign up for an account before they can log into the site. A user/password combination is stored in the back end that is verified on successive logins to ensure only validated users have access to the site.
