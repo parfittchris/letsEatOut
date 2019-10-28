@@ -8,9 +8,12 @@
         <div class="userInfo">
           <h3>Username: {{this.user.username}}</h3>
           <h3>Email: {{this.user.email}}</h3>
-          <div class="followers">
-            <h4>Followers: {{this.followers.length}}</h4>
-            <h4>Following: {{this.peopleFollowing.length}}</h4>
+          <div class="followersDiv">
+            <h4 class="followers" v-on:click="showFollowers">Followers: {{this.followers.length}}</h4>
+            <h4
+              class="followers"
+              v-on:click="showPeopleFollowing"
+            >Following: {{this.peopleFollowing.length}}</h4>
           </div>
         </div>
       </div>
@@ -32,9 +35,12 @@
         <img class="profileImage" src="./../../assets/images/profile.png" />
         <div class="userInfo">
           <h3>Username: {{this.user.username}}</h3>
-          <div class="followers">
-            <h4 v-on:click="test1">Followers: {{this.followers.length}}</h4>
-            <h4 v-on:click="test2">Following: {{this.peopleFollowing.length}}</h4>
+          <div class="followersDiv">
+            <h4 class="followers" v-on:click="showFollowers">Followers: {{this.followers.length}}</h4>
+            <h4
+              class="followers"
+              v-on:click="showPeopleFollowing"
+            >Following: {{this.peopleFollowing.length}}</h4>
           </div>
           <button v-if="this.following === true" v-on:click="follow" class="unFollowBtn">UnFollow</button>
           <button v-else v-on:click="follow" class="followBtn">Follow</button>
@@ -51,12 +57,21 @@
         </div>
       </div>
     </div>
+    <div class="profileModal" id="followers" v-if="this.showFollowersBool">
+      <showFollowers v-bind:user="this.user" @close="showFollowers" />
+    </div>
+    <div class="profileModal" id="peopleFollowing" v-if="this.showPeopleFollowingBool">
+      <showPeopleFollowing v-bind:user="this.user" @close="showPeopleFollowing" />
+    </div>
   </div>
 </template>
 <script>
 import axios from "axios";
 import Sidebar from "./sidebar";
 import Review from "./review";
+import showFollowers from "./showFollowers";
+import showPeopleFollowing from "./showPeopleFollowing";
+
 export default {
   name: "profile",
   data() {
@@ -64,10 +79,19 @@ export default {
       user: [],
       following: false,
       followers: [],
-      peopleFollowing: []
+      peopleFollowing: [],
+      showFollowersBool: false,
+      showPeopleFollowingBool: false
     };
   },
   methods: {
+    showFollowers() {
+      this.showFollowersBool = this.showFollowersBool === true ? false : true;
+    },
+    showPeopleFollowing() {
+      this.showPeopleFollowingBool =
+        this.showPeopleFollowingBool === true ? false : true;
+    },
     follow() {
       if (this.following === true) {
         this.following = false;
@@ -120,17 +144,13 @@ export default {
           });
         })
         .catch(err => console.log(err));
-    },
-    test1() {
-      console.log(this.followers);
-    },
-    test2() {
-      console.log(this.peopleFollowing);
     }
   },
   components: {
     Sidebar,
-    Review
+    Review,
+    showFollowers,
+    showPeopleFollowing
   },
   mounted() {
     this.getFollows();
@@ -177,10 +197,15 @@ h1 {
   padding-left: 10%;
 }
 
-.followers {
+.followersDiv {
   display: flex;
   justify-content: space-around;
   text-align: center;
+}
+
+.followers:hover {
+  color: blue;
+  cursor: pointer;
 }
 
 .followBtn {
@@ -225,5 +250,12 @@ h1 {
 .reviewItem {
   width: 90%;
   margin: 10px auto;
+}
+
+.profileModal {
+  background-color: white;
+  width: 100px;
+  height: 100px;
+  border: 1px solid black;
 }
 </style>
