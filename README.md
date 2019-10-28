@@ -8,9 +8,8 @@ Don't know where to eat tonight? Unsure what the current hottest restaurant in t
 ## Functionality
 
 In letsEatOut users will be able to:
-  * Login to an existing or Sign up for an account
-  * Navigate the database of restaurants
-  * Write a restaurant a review with the option of deleting later
+  * Login to an existing account or Sign up to create a new one
+  * Navigate the database of restaurants, create/delete reviews
   * View other users profiles/reviews and follow users
   
  ## Features
@@ -18,7 +17,7 @@ In letsEatOut users will be able to:
  ### Login/Sign Up Authentication
  ![wire frame](https://github.com/parfittchris/letsEatOut/blob/master/app/assets/images/userauth.png)
  
- Users must sign up for an account before they can log into the site. A user/password combination is stored in the back end that is verified on successive logins to ensure only validated users have access to the site.
+ Users must sign up for an account before they can log into the site. A user/password combination is stored in the back-end that is verified on successive logins to ensure only validated users have access to the site. Manually entering a url will return an unauthorized user to login page even if it matches a route.
 
 ```
 loginUser(e) {
@@ -37,11 +36,11 @@ loginUser(e) {
   ```
    
 ### Write and delete reviews
-Users can search for restaurants and write reviews implmenting a rating as well. Users are able to delete reviews as well but only those that they themselves have written, not those by other users.
+Users can search for restaurants and write reviews featuring title, content, and restaurant rating. Users are able to delete reviews as well but only those that they themselves have written, not those by other users. 
  ![wire frame](https://github.com/parfittchris/letsEatOut/blob/master/app/assets/images/review2.png)
 
 ### Profile Page and Followers
-Users can access their own profile and the profiles of other users. Profiles show all reviews written by that user as well as a tally of follower and followed accounts. Users can follow other user accounts.
+Users can access their own profile and the profiles of other users. Profiles show all reviews written by that user as well as a tally of followers and followed accounts. Users can follow other user accounts.
 
 ```
 follow() {
