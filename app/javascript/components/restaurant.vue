@@ -91,6 +91,10 @@ export default {
   left: 20vw;
 }
 
+.restaurant-header {
+  margin: -8px;
+}
+
 .restaurant-details {
   display: flex;
   padding-top: 5%;

@@ -67,6 +67,7 @@ export default {
 
 .restaurant-header {
   display: flex;
+  margin: -8px;
 }
 
 .header-img {

@@ -9,8 +9,8 @@
           <h3>Username: {{this.user.username}}</h3>
           <h3>Email: {{this.user.email}}</h3>
           <div class="followers">
-            <h4 v-on:click="test1">Followers: {{this.followers.length}}</h4>
-            <h4 v-on:click="test2">Following: {{this.peopleFollowing.length}}</h4>
+            <h4>Followers: {{this.followers.length}}</h4>
+            <h4>Following: {{this.peopleFollowing.length}}</h4>
           </div>
         </div>
       </div>
@@ -68,12 +68,6 @@ export default {
     };
   },
   methods: {
-    test1() {
-      console.log(this.followers);
-    },
-    test2() {
-      console.log(this.peopleFollowing);
-    },
     follow() {
       if (this.following === true) {
         this.following = false;
@@ -85,7 +79,9 @@ export default {
               follow_id: this.user.id
             }
           })
-          .then(res => console.log(res))
+          .then(res => {
+            this.getFollows();
+          })
           .catch(err => console.log(err));
       } else {
         this.following = true;
@@ -95,9 +91,41 @@ export default {
             user_id: this.$store.state.currentUser,
             follow_id: this.user.id
           })
-          .then(res => console.log(res.data))
+          .then(res => {
+            this.getFollows();
+          })
           .catch(err => console.log(err));
       }
+    },
+    getFollows() {
+      let urlSplit = window.location.href.split("/");
+      let num = parseInt(urlSplit[urlSplit.length - 1]);
+      this.peopleFollowing = [];
+      this.followers = [];
+
+      axios
+        .get(`/api/users/${num}`)
+        .then(res => {
+          this.user = res.data;
+          console.log(res.data);
+          res.data.follows.forEach(follower => {
+            if (follower.id === this.$store.state.currentUser) {
+              this.following = true;
+            }
+            this.followers.push(follower);
+          });
+
+          res.data.people_following.forEach(person => {
+            this.peopleFollowing.push(person);
+          });
+        })
+        .catch(err => console.log(err));
+    },
+    test1() {
+      console.log(this.followers);
+    },
+    test2() {
+      console.log(this.peopleFollowing);
     }
   },
   components: {
@@ -105,26 +133,7 @@ export default {
     Review
   },
   mounted() {
-    let urlSplit = window.location.href.split("/");
-    let num = parseInt(urlSplit[urlSplit.length - 1]);
-
-    axios
-      .get(`/api/users/${num}`)
-      .then(res => {
-        this.user = res.data;
-        console.log(res.data);
-        res.data.follows.forEach(follower => {
-          if (follower.id === this.$store.state.currentUser) {
-            this.following = true;
-          }
-          this.followers.push(follower);
-        });
-
-        res.data.people_following.forEach(person => {
-          this.peopleFollowing.push(person);
-        });
-      })
-      .catch(err => console.log(err));
+    this.getFollows();
   }
 };
 </script>

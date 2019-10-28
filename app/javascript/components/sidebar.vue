@@ -47,6 +47,7 @@ export default {
   position: fixed;
   display: flex;
   flex-direction: column;
+  margin: -8px;
 }
 
 .topBtns {
