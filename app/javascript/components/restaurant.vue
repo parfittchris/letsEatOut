@@ -22,12 +22,12 @@
         <h1>{{this.info.name}} Reviews</h1>
         <button class="reviewBtn" v-on:click="addReview">Add a review</button>
         <div class="review-section" v-bind:key="review.id" v-for="review in this.info.reviews">
-          <Review v-bind:review="review" />
+          <Review v-bind:review="review" @deleted="getReviews" />
         </div>
       </div>
     </div>
     <div id="modal" v-if="this.clicked">
-      <addReview v-bind:restaurantId="this.info.id" @close-modal="addReview" />
+      <addReview v-bind:restaurantId="this.info.id" @submitted="getReviews" @close="addReview" />
     </div>
   </div>
 </template>
@@ -62,7 +62,6 @@ export default {
       }
     },
     getReviews() {
-      this.updated = false;
       this.clicked = false;
 
       let urlSplit = window.location.href.split("/");
@@ -82,7 +81,6 @@ export default {
 .restaurant {
   display: flex;
   background-color: #a3a3ff;
-  /* z-index: 0; */
 }
 
 .restaurant-content {

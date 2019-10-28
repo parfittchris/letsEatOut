@@ -35,11 +35,13 @@ export default {
       .catch(err => console.log(err));
   },
   methods: {
-    deleteReview() {
+    deleteReview(e) {
+      e.preventDefault();
+
       axios
         .delete(`/api/reviews/${this.review.id}`)
         .then(res => {
-          console.log(res.data);
+          this.$emit("deleted");
         })
         .catch(err => console.log(err));
     }

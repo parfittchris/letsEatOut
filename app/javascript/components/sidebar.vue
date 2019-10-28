@@ -30,17 +30,9 @@ export default {
   },
   methods: {
     logout() {
-      axios
-        .delete("./api/session")
-        .then(res => {
-          this.$store.commit("setAuthentication", false);
-          this.$store.commit("currentUser", null);
-          this.$router.replace({ name: "login" });
-        })
-        .catch(err => console.log(err));
-    },
-    test() {
-      console.log(this.$store.state.currentUser);
+      this.$store.commit("setAuthentication", false);
+      this.$store.commit("setCurrentUser", null);
+      this.$router.replace({ name: "login" });
     }
   }
 };

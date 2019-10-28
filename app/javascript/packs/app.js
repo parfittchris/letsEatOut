@@ -44,11 +44,11 @@ const router = new VueRouter({
 });
 
 document.addEventListener('DOMContentLoaded', () => {
-  var app = new Vue({
+  const app = new Vue({
     router,
     store,
     render: h => h(App)
-  }).$mount()
+  }).$mount('#app')
   document.body.appendChild(app.$el)
 
   console.log(app)

@@ -1,4 +1,4 @@
-<template>
+<template >
   <div id="addReview">
     <div id="addReviewArea">
       <h2 class="reviewTitle">Add a review</h2>
@@ -21,7 +21,7 @@
         </div>
         <input type="submit" value="Submit" class="submit btn" />
       </form>
-      <button class="close btn" v-on:click="$emit('close-modal')">Close</button>
+      <button class="close btn" v-on:click="$emit('close')">Close</button>
     </div>
   </div>
 </template>
@@ -41,6 +41,8 @@ export default {
   },
   methods: {
     addReview(e) {
+      e.preventDefault();
+
       axios
         .post("/api/reviews", {
           author_id: this.$store.state.currentUser,
@@ -50,7 +52,7 @@ export default {
           rating: this.rating
         })
         .then(res => {
-          console.log(res.data);
+          this.$emit("submitted");
         })
         .catch(err => console.log(err));
     },
