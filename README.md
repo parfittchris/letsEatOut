@@ -1,6 +1,6 @@
 # letsEatOut - A premier restaurant review site helps you find where to eat tonight
 
-Live Link: https://letseatoutapp.herokuapp.com/
+This app is no longer live
 
 ## Background and Overview
 Don't know where to eat tonight? Unsure what the current hottest restaurant in the neighborhood is? Have no fear, because letsEatOut is here to handle that for you. Browse our database of restaurants to find one that matches what you're looking for, write your own review of a restaurant where you received a particularly great meal, and even follow other users on the site to get a heads up on what might be a great place to dine out. It's all there for you complete with user-authenticated login and signup pages. 
